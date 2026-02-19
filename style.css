@@ -1,0 +1,63 @@
+* {
+    color: white;
+}
+html  {    
+    height: 100%;
+    background: linear-gradient(0deg, #191414, #128f3d)
+}
+
+.song-box {
+    background-color: transparent;
+    border-color: black;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+
+.playBtn {
+    width: 38px;
+    height: 38px;
+    border-radius: 100%;
+    border-width: 0px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playBtn img {
+    width: 25px;
+}
+
+
+.playBtn:hover {
+    background: linear-gradient(120deg, rgb(170,170,170), white)
+}
+
+.playBtn:active {
+    background: linear-gradient(120deg, rgb(150,150,150), white)
+}
+
+#playerbar {
+    position: fixed;
+    background-color: transparent;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#playerbar .playBtn {
+    width: 76px;
+    height: 76px;
+}
+
+.playerbarelements {
+    margin-left: 15px;
+}
+
+#playerbar img {
+    width: 50px;
+}

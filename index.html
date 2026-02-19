@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="player" controls></audio>
+    <h1>My Music Library</h1>
+    <hr>
+    <div id="songlist"></div>
+    <div id="playerbar" style="color: white;">
+        <div>
+            <div style="display: flex; justify-content: center;">
+                <button class="playBtn playerbarelements" id="previous">
+                    <img style="transform: scaleX(-1);" src="./images/nextBtn.png" alt="">
+                </button>
+                <button class="playBtn playerbarelements" id="playpause">
+                    <img src="./images/playBtn.png" alt="">
+                </button>
+                <button class="playBtn playerbarelements" id="next">
+                    <img src="./images/nextBtn.png" alt="">
+                </button>
+            </div>
+
+            <div>
+                <input style="width: 300px;" id="sliderDuration" class="playerbarelements" type="range" value="0" min="0" max="100">
+            </div>
+        </div>
+        <div>
+           <input style="margin-top: 20px; margin-left: -20px; transform: rotate(-90deg);" id="sliderAudio" class="playerbarelements" type="range" min="0" max="100">
+        </div>        
+    </div>
+    <script src="main.js"></script>
+    
+</body>
+</html>
