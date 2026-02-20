@@ -6,10 +6,28 @@ const musicDB = [
         album: "Around the Fur",
     },
     {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
         file: "./songs/Mascara - Deftones.mp3",
         name: "Mascara",
         artist: "Deftones",
         album: "Around the Fur",
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
     },
     {
         file: "./songs/Mascara - Deftones.mp3",
@@ -22,11 +40,30 @@ const musicDB = [
         name: "Mascara",
         artist: "Deftones",
         album: "Around the Fur",
-    },{
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
         file: "./songs/Mascara - Deftones.mp3",
         name: "Mascara",
         artist: "Deftones",
         album: "Around the Fur",
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
     },
     {
         file: "./songs/Mascara - Deftones.mp3",
@@ -41,11 +78,35 @@ const musicDB = [
         album: "Around the Fur",
     },
     {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
         file: "./songs/Mascara - Deftones.mp3",
         name: "Mascara",
         artist: "Deftones",
         album: "Around the Fur",
-    }   
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
+        file: "./songs/Du Hast - Rammstein.mp3",
+        name: "Du Hast",
+        artist: "Rammstein",
+        album: "Sechnsucht",
+    },
+    {
+        file: "./songs/Mascara - Deftones.mp3",
+        name: "Mascara",
+        artist: "Deftones",
+        album: "Around the Fur",
+    }
 ];
 
 const songlist = document.getElementById("songlist");
@@ -54,7 +115,10 @@ const sliderAudio = document.getElementById("sliderAudio")
 const sliderDuration = document.getElementById("sliderDuration")
 const prevBtn = document.getElementById("previous");
 const nextBtn = document.getElementById("next");
-const playPause = document.getElementById("playpause");
+const playPauseBtn = document.getElementById("playpausebtn");
+const durationSliderCurrentTime = document.getElementById("durationSliderCurrentTime");
+const durationSliderSongLength = document.getElementById("durationSliderSongLength");
+var songIndex;
 
 musicDB.forEach((song) => {
     
@@ -71,8 +135,9 @@ musicDB.forEach((song) => {
     <img src="./images/playBtn.png/">`;
 
     btn.onclick = () => {
-        var songIndex = musicDB.indexOf(song);
-        console.log(songIndex);
+        songIndex = musicDB.indexOf(song);
+        console.log("Current Song (index): " + songIndex);
+        console.log("Current Song: " + musicDB[songIndex].name + " by " + musicDB[songIndex].artist); 
         player.src = song.file;
         player.play();
     };
@@ -88,21 +153,59 @@ musicDB.forEach((song) => {
 });
 
 
-playPause.onclick = function() {
+playPauseBtn.onclick = function() {
     if (player.paused){
-        player.play();
-        playPause.innerHTML = `
-        <img src="./images/pauseBtn.png/">`;
+        if (songIndex === undefined){
+            return;
+        } 
+        else{
+            player.play();
+        }
     } else if (player.paused === false){
         player.pause();
-        playPause.innerHTML = `
-        <img src="./images/playBtn.png/">`;
     };
 };
 
+nextBtn.onclick = function() {
+    songIndex++;
+    if (songIndex >= musicDB.length) {
+        songIndex = 0;
+    };
+
+    player.pause();
+    player.src = musicDB[songIndex].file;
+    player.load();
+    console.log("Current Song (index): " + songIndex);
+    console.log("Current Song: " + musicDB[songIndex].name + " by " + musicDB[songIndex].artist); 
+    player.play();
+};
+
+prevBtn.onclick = function() {
+    songIndex++;
+    if (songIndex >= musicDB.length) {
+        songIndex = 0;
+    };
+
+    player.pause();
+    player.src = musicDB[songIndex].file;
+    player.load();
+    console.log("Current Song (index): " + songIndex);
+    console.log("Current Song: " + musicDB[songIndex].name + " by " + musicDB[songIndex].artist); 
+    player.play();
+};
+
+player.onplay = function() {
+    playPauseBtn.innerHTML = `
+            <img src="./images/pauseBtn.png/">`;
+};
+
+player.onpause = function() {
+    playPauseBtn.innerHTML = `
+            <img src="./images/playBtn.png/">`;
+};
 
 sliderAudio.oninput = function() {
-    player.volume = sliderAudio.value;
+    player.volume = sliderAudio.value/100;
 };
 
 sliderDuration.oninput = function() {
@@ -111,8 +214,11 @@ sliderDuration.oninput = function() {
 
 player.addEventListener("loadedmetadata", () => {
     sliderDuration.max = Math.floor(player.duration);
+    durationSliderSongLength.innerText = (Math.floor(player.duration/60) > 9 ? Math.floor(player.duration/60) : '0' + Math.floor(player.duration/60))+":"+(Math.floor(player.duration%60) > 9 ? Math.floor(player.duration%60) : '0' + Math.floor(player.duration%60));
+    player.volume = sliderAudio.value/100;
 });
 
 player.addEventListener("timeupdate", () => {
     sliderDuration.value = player.currentTime;
+    durationSliderCurrentTime.innerText = (Math.floor(player.currentTime/60) > 9 ? Math.floor(player.currentTime/60) : '0' + Math.floor(player.currentTime/60))+":"+(Math.floor(player.currentTime%60) > 9 ? Math.floor(player.currentTime%60) : '0' + Math.floor(player.currentTime%60));
 });
