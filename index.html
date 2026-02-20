@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Music Library</title>
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,7 +18,7 @@
                 <button class="playBtn playerbarelements" id="previous">
                     <img style="transform: scaleX(-1);" src="./images/nextBtn.png" alt="">
                 </button>
-                <button class="playBtn playerbarelements" id="playpause">
+                <button class="playBtn playerbarelements" id="playpausebtn">
                     <img src="./images/playBtn.png" alt="">
                 </button>
                 <button class="playBtn playerbarelements" id="next">
@@ -26,8 +26,10 @@
                 </button>
             </div>
 
-            <div>
+            <div style="display: flex;">
+                <span id="durationSliderCurrentTime">--:--</span>
                 <input style="width: 300px;" id="sliderDuration" class="playerbarelements" type="range" value="0" min="0" max="100">
+                <span id="durationSliderSongLength">--:--</span>
             </div>
         </div>
         <div>
